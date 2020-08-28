@@ -36,7 +36,6 @@ public class HttpServer {
     }
 
     public void start() {
-        while(true) {
             try {
                 ServerSocket serverSocket = null;
                 int port = getPort();
@@ -75,7 +74,7 @@ public class HttpServer {
             } catch (IOException ex) {
                 Logger.getLogger(HttpServer.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+
     }
 
     private void processRequest(Socket clientSocket) throws IOException, InvocationTargetException, IllegalAccessException {
@@ -98,14 +97,18 @@ public class HttpServer {
                 break;
             }
         }
-        Request req = new Request(request.get("requestLine"));
+        if(request.get("requestLine")!=null){
+            Request req = new Request(request.get("requestLine"));
 
-        System.out.println("RequestLine: " + req);
-        if(!req.equals(null)) {
-            createResponse(req, new PrintWriter(
-                    clientSocket.getOutputStream(), true));
+            System.out.println("RequestLine: " + req);
+            if(req != null) {
+                createResponse(req, new PrintWriter(
+                        clientSocket.getOutputStream(), true));
+            }
+            in.close();
+
         }
-        in.close();
+
     }
 
     private String[] createEntry(String rawEntry) {
