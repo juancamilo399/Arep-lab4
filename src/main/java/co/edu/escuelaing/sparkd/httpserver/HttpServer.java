@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class HttpServer {
 
     private  MicroSpring iocServer;
-    private int port = 36000;
+    //private int port = 36000;
     private boolean running = false;
 
     public HttpServer() {
@@ -27,47 +27,54 @@ public class HttpServer {
         this.iocServer = iocServer;
     }
 
-    public HttpServer(int port) {
-        this.port = port;
+
+    private static int getPort() {
+        if (System.getenv("PORT") != null) {
+            return Integer.parseInt(System.getenv("PORT"));
+        }
+        return 36000;
     }
 
     public void start() {
-        try {
-            ServerSocket serverSocket = null;
-
+        while(true) {
             try {
-                serverSocket = new ServerSocket(port);
-            } catch (IOException e) {
-                System.err.println("Could not listen on port: " + port);
-                System.exit(1);
-            }
+                ServerSocket serverSocket = null;
+                int port = getPort();
 
-            running = true;
-            while (running) {
                 try {
-                    Socket clientSocket = null;
-                    try {
-                        System.out.println("Listo para recibir en puerto 36000 ...");
-                        clientSocket = serverSocket.accept();
-                    } catch (IOException e) {
-                        System.err.println("Accept failed.");
-                        System.exit(1);
-                    }
-
-                    processRequest(clientSocket);
-
-                    clientSocket.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(HttpServer.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    serverSocket = new ServerSocket(port);
+                } catch (IOException e) {
+                    System.err.println("Could not listen on port: " + port);
+                    System.exit(1);
                 }
+
+                running = true;
+                while (running) {
+                    try {
+                        Socket clientSocket = null;
+                        try {
+                            System.out.println("Listo para recibir en puerto 36000 ...");
+                            clientSocket = serverSocket.accept();
+                        } catch (IOException e) {
+                            System.err.println("Accept failed.");
+                            System.exit(1);
+                        }
+
+                        processRequest(clientSocket);
+
+                        clientSocket.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(HttpServer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+                serverSocket.close();
+            } catch (IOException ex) {
+                Logger.getLogger(HttpServer.class.getName()).log(Level.SEVERE, null, ex);
             }
-            serverSocket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(HttpServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
