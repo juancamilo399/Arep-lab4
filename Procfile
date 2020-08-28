@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* co.edu.escuelaing.sparkd.SparkD.SparkDServer
+web: java -cp target/classes;target/dependency/* co.edu.escuelaing.sparkd.SparkD.SparkDServer

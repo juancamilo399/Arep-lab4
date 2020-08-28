@@ -101,9 +101,10 @@ public class HttpServer {
         Request req = new Request(request.get("requestLine"));
 
         System.out.println("RequestLine: " + req);
-
-        createResponse(req, new PrintWriter(
-                clientSocket.getOutputStream(), true));
+        if(!req.equals(null)) {
+            createResponse(req, new PrintWriter(
+                    clientSocket.getOutputStream(), true));
+        }
         in.close();
     }
 
