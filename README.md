@@ -1,6 +1,6 @@
 # Arep-lab4
 
-In this workshop a Web server (Apache type) was built in Java. The server is capable of delivering html pages. The server also provides an IoC framework for building web applications from POJOS.
+In this workshop a Web server (Apache type) was built in Java. The server is capable of delivering html pages and images. The server also provides an IoC framework for building web applications from POJOS.
 
 
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=warm-sands-05374&style=flat)
