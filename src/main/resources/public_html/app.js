@@ -1,3 +1,9 @@
+var buttonimg = document.getElementById('btn1');
+console.log(buttonimg);
+buttonimg.addEventListener('click', function () {
+    $('#myImg').toggle('slow');
+});
+
 var buttonName = document.getElementById('buttonName');
 buttonName.addEventListener('click', function () {
     $("#hello").empty();
