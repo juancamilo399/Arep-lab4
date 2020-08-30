@@ -3,7 +3,7 @@
 In this workshop a Web server (Apache type) was built in Java. The server is capable of delivering html pages and images. The server also provides an IoC framework for building web applications from POJOS.
 
 
-![Heroku](https://pyheroku-badge.herokuapp.com/?app=warm-sands-05374&style=flat)
+
 [![CircleCI](https://circleci.com/gh/juancamilo399/Arep-lab4.svg?style=svg)](https://app.circleci.com/pipelines/github/juancamilo399/Arep-lab4)
 
 [Deploy to heroku](https://warm-sands-05374.herokuapp.com/index.html)
